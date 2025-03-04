@@ -52,6 +52,7 @@ const JobForm = () => {
                 value={salary}
                 onChange={(e) => setSalary(e.target.value)}
             />
+            <button type='submit'></button>
       </form>
     
       
