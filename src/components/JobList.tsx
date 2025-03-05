@@ -7,6 +7,10 @@ const JobList = () => {
     const dispatch = useDispatch();
   return (
     <div>
+      <h2>Job Listing</h2>
+      {jobs.length === 0 ? (
+        <p>No jobs available.</p>
+      )}
       
     </div>
   )
