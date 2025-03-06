@@ -18,7 +18,7 @@ const JobList = () => {
               <p>Location: {job.location}</p>
               <p>Description: {job.description}</p>
               <p>Salary: {job.salary}</p>
-              <button onClick={() => dispatch(removeJob(jobs.id))}
+              <button onClick={() => dispatch(removeJob(job.id))}
               >
                 Remove
               </button>
