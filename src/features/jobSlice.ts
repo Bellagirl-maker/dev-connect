@@ -26,8 +26,9 @@ const jobSlice = createSlice({
         },
 
         removeJob: (state, action: PayloadAction<string>) => {
-            state.jobs.filter((job) => job.id !== action.payload);
+            state.jobs = state.jobs.filter((job) => job.id !== action.payload);
         },
+        
 
 
     },
