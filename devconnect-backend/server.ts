@@ -1,4 +1,5 @@
 import express from "express";
+import jobRoutes from "./routes/jobRoutes";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,6 +12,11 @@ const MONGO_URI = process.env.MONGO_URI as string;
 
 app.use(cors());
 app.use(express.json());
+
+// ✅ Test route
+app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
 
 mongoose
     .connect(MONGO_URI)
