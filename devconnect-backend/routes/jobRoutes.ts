@@ -3,58 +3,32 @@ import Job from "../models/Job";
 
 const router = express.Router();
 
-// ✅ CREATE a Job (POST /api/jobs)
+// ✅ Create a new job
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const job = new Job(req.body);
-    await job.save();
-    res.status(201).json(job);
+    const { title, description, company } = req.body;
+    if (!title || !description || !company) {
+       res.status(400).json({ message: "All fields are required" });
+    }
+
+    const newJob = new Job({ title, description, company });
+    await newJob.save();
+    res.status(201).json(newJob);
   } catch (error) {
-    res.status(500).json({ error: "Error creating job" });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
-// ✅ GET All Jobs (GET /api/jobs)
+
+// ✅ Get all jobs
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const jobs = await Job.find();
+    const jobs = await Job.find(); // Fetch all jobs
     res.status(200).json(jobs);
   } catch (error) {
-    res.status(500).json({ error: "Error fetching jobs" });
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
-// ✅ GET a Single Job by ID (GET /api/jobs/:id)
-router.get("/:id", async (req: Request, res: Response) => {
-  try {
-    const job = await Job.findById(req.params.id);
-    if (!job) return res.status(404).json({ error: "Job not found" });
-    res.status(200).json(job);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching job" });
-  }
-});
-
-// ✅ UPDATE a Job (PUT /api/jobs/:id)
-router.put("/:id", async (req: Request, res: Response) => {
-  try {
-    const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!job) return res.status(404).json({ error: "Job not found" });
-    res.status(200).json(job);
-  } catch (error) {
-    res.status(500).json({ error: "Error updating job" });
-  }
-});
-
-// ✅ DELETE a Job (DELETE /api/jobs/:id)
-router.delete("/:id", async (req: Request, res: Response) => {
-  try {
-    const job = await Job.findByIdAndDelete(req.params.id);
-    if (!job) return res.status(404).json({ error: "Job not found" });
-    res.status(200).json({ message: "Job deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error deleting job" });
-  }
-});
 
 export default router;
