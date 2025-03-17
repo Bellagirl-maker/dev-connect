@@ -6,18 +6,24 @@ const router = express.Router();
 // ✅ Create a new job
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { title, description, company } = req.body;
-    if (!title || !description || !company) {
-       res.status(400).json({ message: "All fields are required" });
+    console.log("Incoming request body:", req.body); // ✅ Log request body
+
+    const { title, description, company, salary, location } = req.body;
+
+    if (!title || !description || !company || !salary || !location) {
+      res.status(400).json({ message: "All fields are required" }); // ✅ Add return to stop execution
     }
 
-    const newJob = new Job({ title, description, company });
+    const newJob = new Job({ title, description, company, salary, location }); // ✅ Include all fields
     await newJob.save();
+
     res.status(201).json(newJob);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+  } catch (error: any) {
+    console.error("❌ Error creating job:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
+
 
 
 // ✅ Get all jobs
@@ -30,5 +36,25 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+
+router.put("/:id", async (req: Request, res: Response) => {
+  try {
+    const { title, description, company, salary, location } = req.body;
+    const updatedJob = await Job.findByIdAndUpdate(
+      req.params.id,
+      { title, description, company, salary, location },
+      { new: true, runValidators: true }
+    );
+  
+    if (!updatedJob) {
+      res.status(404).json({ message: "Job not found" });
+    }
+    res.json(updatedJob);
+  } catch (error: any) {
+    console.error("Error updating job:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+
+});
 
 export default router;
