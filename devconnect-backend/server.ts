@@ -13,10 +13,7 @@ const MONGO_URI = process.env.MONGO_URI as string;
 app.use(cors());
 app.use(express.json());
 
-// ✅ Test route
-app.get("/", (req, res) => {
-    res.send("API is running...");
-  });
+app.use("/api/jobs", jobRoutes);
 
 mongoose
     .connect(MONGO_URI)
