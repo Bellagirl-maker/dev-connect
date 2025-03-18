@@ -15,7 +15,7 @@ const JobSchema: Schema = new Schema(
         company: { type: String, required: true },
         location: { type: String, required: true },
         description: { type: String, required: true },
-        salary: { type: String, required: true },
+        salary: { type: Number, required: true },
     },
     { timestamps: true }
 );
