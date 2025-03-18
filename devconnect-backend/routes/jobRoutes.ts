@@ -29,7 +29,20 @@ router.post("/", async (req: Request, res: Response) => {
 // ✅ Get all jobs
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const jobs = await Job.find(); // Fetch all jobs
+    const { location, company, search } = req.query;
+    let filter: any = {};
+
+    if (location) filter.location = location;
+    if (company) filter.company = company;
+
+    if (search) {
+      filter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } }
+      ];
+    }
+    
+    const jobs = await Job.find(filter);
     res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
