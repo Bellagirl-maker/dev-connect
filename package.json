@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/uuid": "^10.0.0",
     "ts-node": "^10.9.2"
   }
