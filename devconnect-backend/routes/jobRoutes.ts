@@ -51,7 +51,7 @@ router.get("/", authenticate as RequestHandler, async (req: Request, res: Respon
 });
 
 
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/:id", authenticate as RequestHandler, async (req: Request, res: Response) => {
   try {
     const { title, description, company, salary, location } = req.body;
     const updatedJob = await Job.findByIdAndUpdate(
