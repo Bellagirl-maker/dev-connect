@@ -71,7 +71,7 @@ router.put("/:id", authenticate as RequestHandler, async (req: Request, res: Res
 
 });
 
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", authenticate as RequestHandler, async (req: Request, res: Response) => {
   try {
     const deletedJob = await Job.findByIdAndDelete(req.params.id);
     if (!deletedJob) {
