@@ -1,10 +1,11 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, RequestHandler } from "express";
+import { authenticate } from "../middleware/authMiddleware";
 import Job from "../models/Job";
 
 const router = express.Router();
 
 // ✅ Create a new job
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", authenticate as RequestHandler, async (req: Request, res: Response) => {
   try {
     console.log("Incoming request body:", req.body); // ✅ Log request body
 
