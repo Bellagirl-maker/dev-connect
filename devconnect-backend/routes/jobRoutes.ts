@@ -28,7 +28,7 @@ router.post("/", authenticate as RequestHandler, async (req: Request, res: Respo
 
 
 // ✅ Get all jobs
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", authenticate as RequestHandler, async (req: Request, res: Response) => {
   try {
     const { location, company, search } = req.query;
     let filter: any = {};
