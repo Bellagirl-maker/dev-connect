@@ -18,12 +18,22 @@ const UserSchema: Schema = new Schema(
     { timestamps: true }
 );
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre<IUser & Document>("save", async function (next) {
     if (!this.isModified("password")) return next();
+
+    // Explicit type assertion
+    const plainPassword = this.password as string;
+
+    if (!plainPassword) {
+        throw new Error("Password is required before hashing.");
+    }
+
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash( this.password, salt);
+    this.password = await bcrypt.hash(plainPassword, salt);
+
     next();
 });
+
 
 UserSchema.methods.comparePassword = async function (password: string) {
     return bcrypt.compare(password, this.password);
