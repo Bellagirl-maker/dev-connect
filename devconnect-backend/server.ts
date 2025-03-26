@@ -14,6 +14,7 @@ const MONGO_URI = process.env.MONGO_URI as string;
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 
 mongoose
