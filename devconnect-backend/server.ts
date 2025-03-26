@@ -1,4 +1,5 @@
 import express from "express";
+import authRoutes from "./routes/authRoutes"
 import jobRoutes from "./routes/jobRoutes";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
