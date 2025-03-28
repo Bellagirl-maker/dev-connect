@@ -7,8 +7,7 @@ const router = express.Router();
 // ✅ Create a new job
 router.post("/", authenticate as RequestHandler, async (req: Request, res: Response) => {
   try {
-    console.log("Incoming request body:", req.body); // ✅ Log request body
-
+    console.log("Incoming request body:", req.body); 
     const { title, description, company, salary, location } = req.body;
 
     if (!title || !description || !company || !salary || !location) {
