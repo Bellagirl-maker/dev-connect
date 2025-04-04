@@ -8,5 +8,9 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loginUser] = useLoginUserMutation();
     const dispatch = useDispatch();
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+    }
     
 }
