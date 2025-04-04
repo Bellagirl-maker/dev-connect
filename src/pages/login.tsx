@@ -11,6 +11,13 @@ const Login = () => {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
+        try {
+            const response = await loginUser({ email, password }).unwrap();
+            dispatch(setCredentials({ token: response.token, user: response.user }));
+            alert('Login Sucessful!')
+        } catch (error) {
+            console.error('Login failed', error)
+        }
     }
     
 }
