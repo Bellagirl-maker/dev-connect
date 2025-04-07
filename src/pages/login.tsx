@@ -18,6 +18,11 @@ const Login = () => {
         } catch (error) {
             console.error('Login failed', error)
         }
-    }
+    };
+    return (
+        <div>
+            <h2>LOGIN</h2>
+        </div>
+    )
     
 }
