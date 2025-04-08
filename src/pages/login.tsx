@@ -23,7 +23,7 @@ const Login = () => {
         <div>
             <h2>LOGIN</h2>
             <form onSubmit={handleLogin}>
-                <input type='email' placeholder='email' value={email} />
+                <input type='email' placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
             </form>
         </div>
     )
